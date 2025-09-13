@@ -2,14 +2,55 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="../assets/app-icon.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Тренажёр таблицы умножения — фокус на сложных примерах</title>
-    <meta name="description" content="Тренажёр умножения с управлением вниманием: ошибки бустятся до ×10, сложные примеры повторяются чаще, пока не закрепятся. Режимы «Обучение» и «Тест», подсказки и прогресс." />
+    <title>Как 2×2 — тренажёр таблицы умножения с фокусом на сложных примерах</title>
+    <meta name="description" content="«Как 2×2» — тренажёр умножения с управлением вниманием: ошибки бустятся до ×10, сложные примеры повторяются чаще, пока не закрепятся. Режимы «Обучение» и «Тест», подсказки и прогресс." />
+    <meta name="theme-color" content="#0f172a">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="preload" as="image" href="../assets/rustore.png">
+    <link rel="preload" as="image" href="../assets/app-icon.png">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Как 2×2">
+    <meta property="og:title" content="Как 2×2 — тренажёр таблицы умножения">
+    <meta property="og:description" content="Тренируйся умно: сложное повторяется чаще, простое не отвлекает. Режимы «Обучение» и «Тест», подсказки и прогресс.">
+    <meta property="og:image" content="../assets/app-icon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Как 2×2 — тренажёр таблицы умножения">
+    <meta name="twitter:description" content="Ошибки повторяются чаще (до ×10), пока не закрепятся. Удобные режимы и наглядный прогресс.">
+    <meta name="twitter:image" content="../assets/app-icon.png">
+
+    <!-- JSON-LD: SoftwareApplication (+скриншоты) -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Как 2×2 — тренажёр таблицы умножения",
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "Android",
+            "description": "Тренажёр умножения с управлением вниманием: ошибки бустятся до ×10, сложные примеры повторяются чаще, пока не закрепятся. Режимы «Обучение» и «Тест», подсказки и прогресс.",
+            "image": "../assets/app-icon.png",
+            "url": "../",
+            "installUrl": "https://www.rustore.ru/catalog/app/ru.fleishera.kak22",
+            "offers": {"@type":"Offer","price":"0","priceCurrency":"RUB"},
+            "publisher": {"@type":"Organization","name":"Fleishera"},
+            "screenshot": [
+                "../assets/169/1.png",
+                "../assets/169/2.png",
+                "../assets/169/3.png",
+                "../assets/169/4.png",
+                "../assets/169/5.png",
+                "../assets/169/6.png"
+            ]
+        }
+    </script>
+
     <style>
         :root{
             --bg:#0f172a; --card:#1e293b; --text:#f8fafc; --muted:#94a3b8; --link:#93c5fd;
-            --a1:#a725f5; --a2:#e1306c; --a3:#f59e0b;
+            --a1:#a725f5; --a2:#e1306c; --a3:#f59e0b; --accent:#ffffff; --ink:#1e293b;
         }
         *{box-sizing:border-box}
         body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
@@ -17,17 +58,36 @@
         nav{margin-bottom:14px}
         nav a{color:var(--link);text-decoration:none}
         nav a:hover{text-decoration:underline}
+
         .hero{background:linear-gradient(135deg,var(--a1),var(--a2),var(--a3));padding:30px 24px;border-radius:22px;box-shadow:0 16px 44px rgba(0,0,0,.35);text-align:center;color:#fff}
         .icon-plate{width:96px;height:96px;border-radius:24px;background:#fff;border:1px solid rgba(15,23,42,.15);box-shadow:0 10px 26px rgba(0,0,0,.25), inset 0 1px 0 rgba(0,0,0,.03);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
         .icon-plate img{width:86px;height:86px;border-radius:20px;display:block}
         h1{font-size:clamp(26px,4vw,36px);margin:10px 0 6px}
         p{margin:0 0 14px}
-        a.btn{display:inline-block;margin-top:18px;padding:14px 26px;font-size:17px;font-weight:700;border-radius:12px;text-decoration:none;color:#1e293b;background:#ffffff;box-shadow:0 4px 14px rgba(0,0,0,.2);transition:transform .15s,box-shadow .15s}
-        a.btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+
+        /* CTA */
+        .cta-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:8px}
+        .btn{display:inline-block;padding:14px 20px;font-size:17px;font-weight:700;border-radius:12px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+        .btn:hover{transform:translateY(-2px)}
+        .btn-primary{color:var(--ink);background:var(--accent);box-shadow:0 4px 14px rgba(0,0,0,.2)}
+        .btn-primary:hover{box-shadow:0 6px 20px rgba(0,0,0,.25)}
+
+        /* Бейдж RuStore — только картинка */
+        .store-img{display:inline-block;border-radius:12px;background:#fff;border:1px solid rgba(15,23,42,.12);box-shadow:0 4px 12px rgba(0,0,0,.18);padding:8px}
+        .store-img img{display:block;max-height:36px;width:auto}
+
         .card{background:var(--card);padding:20px;border-radius:16px;margin-top:20px;box-shadow:0 10px 28px rgba(0,0,0,.4)}
         .features{display:grid;grid-template-columns:1fr;gap:14px}
         @media(min-width:720px){.features{grid-template-columns:1fr 1fr}}
         .feat{background:linear-gradient(180deg,rgba(255,255,255,.02),transparent),var(--card);padding:16px;border-radius:14px}
+
+        /* Галерея скриншотов */
+        .shots{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+        @media(min-width:720px){.shots{grid-template-columns:repeat(3,1fr)}}
+        .shot{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden}
+        .shot img{display:block;width:100%;height:auto}
+        .shot figcaption{display:none}
+
         footer{margin:30px 0 10px;text-align:center;font-size:14px;color:var(--muted)}
     </style>
 </head>
@@ -36,10 +96,24 @@
     <nav><a href="../index.html">← На главную</a></nav>
 
     <header class="hero" role="banner">
-        <div class="icon-plate" aria-hidden="true"><img src="../assets/app-icon.png" alt=""></div>
-        <h1>Таблица умножения, которая держит фокус на сложных местах</h1>
+        <div class="icon-plate" aria-hidden="true">
+            <img src="../assets/app-icon.png" alt="Иконка приложения «Как 2×2»">
+        </div>
+        <h1>«Как 2×2»: таблица умножения, которая держит фокус на сложных местах</h1>
         <p>Если ответил неверно — этот пример будет попадаться чаще (до <strong>×10</strong>), пока правильный ответ не закрепится. Простые примеры не отвлекают — тренировка тратит время на то, что действительно нужно закрепить.</p>
-        <a class="btn" href="https://pay.cloudtips.ru/p/cd7063ec" target="_blank" rel="noopener">💳 Поддержать развитие</a>
+
+        <!-- Только картинка RuStore + кнопка поддержки -->
+        <div class="cta-row" aria-label="Действия">
+            <a class="store-img" href="https://www.rustore.ru/catalog/app/ru.fleishera.kak22"
+               target="_blank" rel="noopener nofollow"
+               aria-label="Открыть страницу приложения в RuStore">
+                <img src="../assets/rustore.png" alt="RuStore">
+            </a>
+            <a class="btn btn-primary" href="https://pay.cloudtips.ru/p/cd7063ec" target="_blank" rel="noopener"
+               aria-label="Поддержать развитие проекта «Как 2×2»">
+                💳 Поддержать развитие
+            </a>
+        </div>
     </header>
 
     <section class="card" aria-label="что внутри">
@@ -59,13 +133,25 @@
             </div>
             <div class="feat">
                 <h3>Прогресс и статистика</h3>
-                <p>График и короткий отчёт показывают, где спотыкаешься, — легко понять, что потренировать ещё. Как только ошибка исправлена — она исчезает из отчёта, поэтому внимание направляется только туда, где это действительно нужно.</p>
+                <p>График и короткий отчёт показывают, где спотыкаешься, — легко понять, что потренировать ещё.</p>
             </div>
+        </div>
+
+        <!-- Скриншоты в описании -->
+        <div class="shots" aria-label="Скриншоты приложения">
+            <figure class="shot"><img src="../assets/169/1.png" alt="Скриншот приложения «Как 2×2» №1" loading="lazy"></figure>
+            <figure class="shot"><img src="../assets/169/2.png" alt="Скриншот приложения «Как 2×2» №2" loading="lazy"></figure>
+            <figure class="shot"><img src="../assets/169/3.png" alt="Скриншот приложения «Как 2×2» №3" loading="lazy"></figure>
+            <figure class="shot"><img src="../assets/169/4.png" alt="Скриншот приложения «Как 2×2» №4" loading="lazy"></figure>
+            <figure class="shot"><img src="../assets/169/5.png" alt="Скриншот приложения «Как 2×2» №5" loading="lazy"></figure>
+            <figure class="shot"><img src="../assets/169/6.png" alt="Скриншот приложения «Как 2×2» №6" loading="lazy"></figure>
         </div>
         <p style="margin-top:12px">Сделано как семейный проект: сначала — для моей дочери Полины, теперь — для всех, кому пригодится.</p>
     </section>
+
     <footer>© <span id="year"></span> «Как 2×2» — маленький, но заботливый тренажёр</footer>
 </div>
+
 <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
 </body>
 </html>
